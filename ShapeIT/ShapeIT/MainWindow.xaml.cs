@@ -44,7 +44,7 @@ namespace ShapeIT
             
             figuresDesigner = new FiguresDesigner(new SolidColorBrush(), new SolidColorBrush());
             figures = new Figures();
-            Assembly asm = Assembly.Load("ShapeIT");
+            Assembly asm = Assembly.GetExecutingAssembly();
             AssemblyName asmName = asm.GetName();
             string simpleAsmName = asmName.Name;
             Type myType = Type.GetType($"{simpleAsmName}.Figure", false, false);
