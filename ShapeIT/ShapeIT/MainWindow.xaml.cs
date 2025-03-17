@@ -93,16 +93,29 @@ namespace ShapeIT
         private void Canvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             int possibleInd = menuItemModel.SelectedItemInd;
-            if (figures.IndPotentialFigure != -1)
-            {
-                if (figures.IndPotentialFigure == possibleInd)
+
+            if (figures.IndPotentialFigure != -1) {
+                int ind = figures.PotentialFigure.Points.Length;
+                if (!figures.Linker.Contains(figures.PotentialFigure))
                 {
-                    int ind = figures.PotentialFigure.Points.Length - 1;
+
+
+                    if (figures.IndPotentialFigure == possibleInd)
+                    {
+
+                        figures.PotentialFigure.AddPoint(ind, e.GetPosition((MyCanvas)sender));
+                        figures.Linker.Add(figures.PotentialFigure);
+
+                    }
+                }
+
+                else
+                {
+
                     figures.PotentialFigure.AddPoint(ind, e.GetPosition((MyCanvas)sender));
-                    figures.Linker.Add(figures.PotentialFigure);
-                    ((MyCanvas)sender).InvalidateVisual();
                 }
             }
+            ((MyCanvas)sender).InvalidateVisual();
         }
 
         

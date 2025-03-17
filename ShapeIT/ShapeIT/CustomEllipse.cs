@@ -12,6 +12,7 @@ namespace ShapeIT
 {
     internal class CustomEllipse:Figure
     {
+        public Point center {  get; set; }
         public override string GetName()
         {
             return "Ellipse";
@@ -30,8 +31,9 @@ namespace ShapeIT
 
             brushFill.Color = this.Fill;
             brushStroke.Color = this.Stroke;
+            center = new Point((Points[1].X + Points[0].X) / 2, (Points[1].Y + Points[0].Y) / 2);
             Pen pen = new Pen(brushStroke, this.StrokeThikness);
-            drawingContext.DrawEllipse(brushFill,pen,Points[0], Points[1].X - Points[0].X, Points[1].Y - Points[0].Y);
+            drawingContext.DrawEllipse(brushFill,pen,center, Math.Abs((Points[1].X - Points[0].X)/2), Math.Abs((Points[1].Y - Points[0].Y)/2));
             
         }
     }
