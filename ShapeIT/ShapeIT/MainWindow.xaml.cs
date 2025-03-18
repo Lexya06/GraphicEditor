@@ -44,7 +44,7 @@ namespace ShapeIT
             
             figuresDesigner = new FiguresDesigner(new SolidColorBrush(), new SolidColorBrush());
             figures = new Figures();
-            Assembly asm = Assembly.GetExecutingAssembly();
+            Assembly asm = Assembly.Load("ShapeIT");
             AssemblyName asmName = asm.GetName();
             string simpleAsmName = asmName.Name;
             Type myType = Type.GetType($"{simpleAsmName}.Figure", false, false);
@@ -86,7 +86,7 @@ namespace ShapeIT
             {
                 ConstructorInfo figureConstructorInfo = figures.FigureTypes[figures.IndPotentialFigure].GetConstructor(Type.EmptyTypes);
                 figures.PotentialFigure = (Figure)figureConstructorInfo.Invoke(null);
-                figures.PotentialFigure.AddPoint(0, e.GetPosition((MyCanvas)sender));
+                figures.PotentialFigure.AddPoint(e.GetPosition((MyCanvas)sender));
             }
         }
 
@@ -95,7 +95,7 @@ namespace ShapeIT
             int possibleInd = menuItemModel.SelectedItemInd;
 
             if (figures.IndPotentialFigure != -1) {
-                int ind = figures.PotentialFigure.Points.Length;
+                
                 if (!figures.Linker.Contains(figures.PotentialFigure))
                 {
 
@@ -103,7 +103,7 @@ namespace ShapeIT
                     if (figures.IndPotentialFigure == possibleInd)
                     {
 
-                        figures.PotentialFigure.AddPoint(ind, e.GetPosition((MyCanvas)sender));
+                        figures.PotentialFigure.AddPoint(e.GetPosition((MyCanvas)sender));
                         figures.Linker.Add(figures.PotentialFigure);
 
                     }
@@ -111,8 +111,7 @@ namespace ShapeIT
 
                 else
                 {
-
-                    figures.PotentialFigure.AddPoint(ind, e.GetPosition((MyCanvas)sender));
+                    figures.PotentialFigure.AddPoint(e.GetPosition((MyCanvas)sender));
                 }
             }
             ((MyCanvas)sender).InvalidateVisual();
@@ -189,15 +188,20 @@ namespace ShapeIT
   
     public abstract class Figure
     {
-
+        public int dotsFilled { get; set; } = 0;
         public virtual string GetName() 
         {
             return "Figure";
         }
         public Point[] Points { get; set; }
-        public virtual void AddPoint(int numArrPoint, Point cord)
+        public virtual void AddPoint(Point cord)
         {
-            Points[numArrPoint] = cord;
+            
+            Points[dotsFilled] = cord;
+            if (dotsFilled < Points.Length - 1)
+            {
+                dotsFilled++;
+            }
         }
        
        

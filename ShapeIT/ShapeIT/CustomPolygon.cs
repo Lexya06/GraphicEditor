@@ -10,12 +10,13 @@ namespace ShapeIT
 {
     internal class CustomPolygon:Figure
     {
-        public override void AddPoint(int numArrPoint, Point cord)
+        public override void AddPoint(Point cord)
         {
             Point[] temp = new Point[Points.Length + 1];
             Array.Copy(Points, temp, Points.Length);
-            temp[numArrPoint] = cord;
+            temp[dotsFilled] = cord;
             Points = temp;
+            dotsFilled++;
         }
         public override string GetName()
         {
