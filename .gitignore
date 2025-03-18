@@ -16,3 +16,5 @@
 *.txt
 *.resources
 *.baml
+**/bin/Debug/
+**/obj/Debug/
