@@ -204,7 +204,6 @@ namespace ShapeIT
             }
         }
        
-       
         public abstract void DrawShape(DrawingContext drawingContext,SolidColorBrush brushFill,SolidColorBrush brushStroke);
         public Color Fill { get; set; }
         public int StrokeThikness { get; set; }

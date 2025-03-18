@@ -10,3 +10,9 @@
 *.env
 *.vs
 *.log
+*.cache
+*.lref
+*.pdb
+*.txt
+*.resources
+*.baml
