@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Haley.WPF.Controls;
 
 
 namespace ShapeIT
@@ -28,11 +29,13 @@ namespace ShapeIT
 
         MenuItemModel menuItemModel;
         Figures figures;
-        FiguresDesigner figuresDesigner;
+        FiguresCache figuresCache;
+        MyCanvas canvas;
         public MainWindow()
         {
             InitializeComponent();
-            MyCanvas canvas = new MyCanvas();
+            figuresCache = new FiguresCache();
+            canvas = new MyCanvas();
             canvas.MouseLeftButtonDown += Canvas_MouseLeftButtonDown;
             canvas.MouseRightButtonDown += Canvas_MouseRightButtonDown;
             canvas.Background = new SolidColorBrush(Colors.Transparent);
@@ -41,43 +44,70 @@ namespace ShapeIT
 
             //canvas.Background = new SolidColorBrush();
             MainGrid.Children.Add(canvas);
-            
-            figuresDesigner = new FiguresDesigner(new SolidColorBrush(), new SolidColorBrush());
             figures = new Figures();
-            Assembly asm = Assembly.Load("ShapeIT");
+            canvas.figures = figures;
+            Assembly asm = Assembly.GetEntryAssembly();
             AssemblyName asmName = asm.GetName();
             string simpleAsmName = asmName.Name;
             Type myType = Type.GetType($"{simpleAsmName}.Figure", false, false);
             figures.FigureTypes = asm.GetTypes().Where(t => t.IsSubclassOf(myType)).ToArray();
-            canvas.figures = figures;
-            canvas.figuresDesigner = figuresDesigner;
             menuItemModel = new MenuItemModel();
             for (int i = 0; i < figures.FigureTypes.Length; i++)
             {
-                MenuItem menuItem = new MenuItem();
+                System.Windows.Controls.MenuItem menuItem = new System.Windows.Controls.MenuItem();
                 string figureTypeName = figures.FigureTypes[i].Name;
                 ConstructorInfo constructorInfo = figures.FigureTypes[i].GetConstructor(Type.EmptyTypes);
                 Figure newObj = (Figure)constructorInfo.Invoke(null);
                 menuItem.Header = newObj.GetName();
                 Image icon = new Image();
 
-                icon.Source = new BitmapImage(new Uri($"pack://application:,,,/Figures/{menuItem.Header}.png"));
+                icon.Source = new BitmapImage(new Uri($"pack://application:,,,/Images/Figures/{menuItem.Header}.png"));
                 menuItem.Icon = icon;
                 miFigures.Items.Add(menuItem);
 
             }
-            miFigures.Click += MenuItem_Click;
-            
-           
+            miFigures.Click += Figures_Click;
+            Undo.Click += Undo_Click;
+            Redo.Click += Redo_Click;
         }
-        
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void Undo_Click(object sender, EventArgs e)
         {
-            menuItemModel.SelectedItemInd = ((MenuItem)sender).Items.IndexOf(e.OriginalSource);
+            
+            if (figuresCache.Backward != 0)
+            {
+                Undo.IsEnabled = true;
+                figuresCache.Undo();
+                canvas.figures.Linker = figuresCache.GetFinalList();
+                canvas.InvalidateVisual();
+            }
+            else
+                Undo.IsEnabled = false;
+            Redo.IsEnabled = true;
+            
         }
-        
-        
+
+        private void Redo_Click(object sender, EventArgs e)
+        {
+            
+            if (figuresCache.Forward != 0)
+            {
+                Redo.IsEnabled = true;
+                figuresCache.Redo();
+                canvas.figures.Linker = figuresCache.GetFinalList();
+                canvas.InvalidateVisual();
+            }
+            else
+                Redo.IsEnabled = false;
+            Undo.IsEnabled = true;
+        }
+
+        private void Figures_Click(object sender, RoutedEventArgs e)
+        {
+            menuItemModel.SelectedItemInd = ((System.Windows.Controls.MenuItem)sender).Items.IndexOf(e.OriginalSource);
+        }
+
+
 
         private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -86,6 +116,9 @@ namespace ShapeIT
             {
                 ConstructorInfo figureConstructorInfo = figures.FigureTypes[figures.IndPotentialFigure].GetConstructor(Type.EmptyTypes);
                 figures.PotentialFigure = (Figure)figureConstructorInfo.Invoke(null);
+                figures.PotentialFigure.Fill = (Color)btColorFill.SelectedColor;
+                figures.PotentialFigure.Stroke = (Color)btColorStroke.SelectedColor;
+                figures.PotentialFigure.StrokeThikness = (int)Thickness.Value;
                 figures.PotentialFigure.AddPoint(e.GetPosition((MyCanvas)sender));
             }
         }
@@ -95,7 +128,7 @@ namespace ShapeIT
             int possibleInd = menuItemModel.SelectedItemInd;
 
             if (figures.IndPotentialFigure != -1) {
-                
+
                 if (!figures.Linker.Contains(figures.PotentialFigure))
                 {
 
@@ -105,7 +138,8 @@ namespace ShapeIT
 
                         figures.PotentialFigure.AddPoint(e.GetPosition((MyCanvas)sender));
                         figures.Linker.Add(figures.PotentialFigure);
-
+                        figuresCache.FigCacheUpdate(figures.Linker);
+                        Undo.IsEnabled = true;
                     }
                 }
 
@@ -116,99 +150,12 @@ namespace ShapeIT
             }
             ((MyCanvas)sender).InvalidateVisual();
         }
-
-        
     }
-
-    public class MyCanvas : Canvas
-    {
-        public Figures figures { get; set; }
-        public FiguresDesigner figuresDesigner { get; set; }
-        protected override void OnRender(DrawingContext drawingContext)
-        {
-            base.OnRender(drawingContext);
-            this.figures.Draw(drawingContext, figuresDesigner.ColorBrushFill, figuresDesigner.ColorBrushStroke);
-        }
-    }
-
 
     public class MenuItemModel
     {
-
-
         private int selectedItemInd = -1;
-        public int SelectedItemInd { get { return selectedItemInd; } set { if (selectedItemInd != value) { selectedItemInd = value;  } } }
-        
-        
-        
+        public int SelectedItemInd { get { return selectedItemInd; } set { if (selectedItemInd != value) { selectedItemInd = value; } } }
     }
-   
-  
-    public class Figures
-    {
-        public Figures()
-        {
-            Linker = new List<Figure>();
-        }
-        public Type[] FigureTypes { get; set; }
-        public int IndPotentialFigure {  get; set; } = -1;
-        public Figure PotentialFigure { get; set; }
-        public List<Figure> Linker { get; set; }
-       
-        public void Draw(DrawingContext drawingContext,SolidColorBrush brushFill,SolidColorBrush brushStroke)
-        {
-            for (int i = 0; i < Linker.Count; i++)
-            {
-                Linker[i].DrawShape(drawingContext, brushFill,brushStroke);
-            }
-        }
-    }
-        
-   
-   public class FiguresDesigner
-   {
-
-        public static int confirmDist = 3;
-        public SolidColorBrush ColorBrushFill { get; set; }
-        public SolidColorBrush ColorBrushStroke { get; set; }
-        public FiguresDesigner()
-        {
-
-        }
-        
-        public FiguresDesigner(SolidColorBrush brushFill,SolidColorBrush brushStroke)
-        {
-            ColorBrushFill = brushFill;
-            ColorBrushStroke = brushStroke; 
-        }
-        
-
-
-    }
-  
-    public abstract class Figure
-    {
-        public int dotsFilled { get; set; } = 0;
-        public virtual string GetName() 
-        {
-            return "Figure";
-        }
-        public Point[] Points { get; set; }
-        public virtual void AddPoint(Point cord)
-        {
-            
-            Points[dotsFilled] = cord;
-            if (dotsFilled < Points.Length - 1)
-            {
-                dotsFilled++;
-            }
-        }
-       
-        public abstract void DrawShape(DrawingContext drawingContext,SolidColorBrush brushFill,SolidColorBrush brushStroke);
-        public Color Fill { get; set; }
-        public int StrokeThikness { get; set; }
-        public Color Stroke { get; set; }
-    }
-    
-    
+      
 }

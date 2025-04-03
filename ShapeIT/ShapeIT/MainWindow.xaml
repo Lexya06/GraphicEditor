@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShapeIT"
+        xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
@@ -18,8 +19,38 @@
             </RowDefinition>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
+            <MenuItem Name="miFile" Header="File">
+                <MenuItem Header="Open" IsEnabled="False"/>
+                <MenuItem Header="Save" IsEnabled="False"/>
+            </MenuItem>
+            <MenuItem Name="Undo" IsEnabled="False">
+                <MenuItem.Icon>
+                    <Image Source="/Images/undo.png" Width="20"></Image>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Name="Redo" IsEnabled="False">
+                <MenuItem.Icon>
+                    <Image Source="/Images/redo.png" Width="20"></Image>
+                </MenuItem.Icon>
+            </MenuItem>
             <MenuItem Header="Figures" Name="miFigures">
+                
+            </MenuItem>
 
+            <MenuItem>
+                <MenuItem.Icon>
+                    <Image Source="/Images/Brush.png"></Image>
+                </MenuItem.Icon>
+                <toolkit:ColorPicker Name="btColorFill" Width="100px" SelectedColor="Red"/>
+                
+            </MenuItem>
+
+            <MenuItem>
+                <MenuItem.Icon>
+                    <Image Source="/Images/Pen.png"></Image>
+                </MenuItem.Icon>
+                <toolkit:ColorPicker Name="btColorStroke" Width="100px" SelectedColor="Black"/>
+                <toolkit:IntegerUpDown Minimum="0" Maximum="10" Value ="5" Name="Thickness"></toolkit:IntegerUpDown>
             </MenuItem>
 
         </Menu>
