@@ -11,6 +11,10 @@ namespace ShapeIT
 {
     public abstract class Figure
     {
+        public virtual int MaxPoints()
+        {
+            return 2;
+        }
         protected int DotsFilled { get; set; } = 0;
         public virtual string GetName()
         {

@@ -6,6 +6,10 @@ namespace ShapeIT
 {
     internal class CustomPolygon:Figure
     {
+        public override int MaxPoints()
+        {
+            return 5000;
+        }
         public override void AddPoint(Point cord)
         {
             Point[] temp = new Point[Points.Length + 1];

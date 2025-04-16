@@ -27,7 +27,7 @@ namespace ShapeIT
     /// 
     public partial class MainWindow : Window
     {
-
+        bool canMove = false;
         MenuItemModel menuItemModel;
         Figures figures;
         FiguresCache figuresCache;
@@ -40,6 +40,8 @@ namespace ShapeIT
             canvas.MouseLeftButtonDown += Canvas_MouseLeftButtonDown;
             canvas.MouseMove += Canvas_MouseMove;
             canvas.MouseLeftButtonUp += Canvas_MouseLeftButtonUp;
+            
+            
             canvas.Background = new SolidColorBrush(Colors.Transparent);
             Grid.SetRow(canvas, 1);
 
@@ -75,6 +77,8 @@ namespace ShapeIT
 
         private void Undo_Click(object sender, EventArgs e)
         {
+
+            figures.PotentialFigure = null;
             Undo.IsEnabled = true;
             figuresCache.Undo();
             
@@ -106,6 +110,9 @@ namespace ShapeIT
         private void Figures_Click(object sender, RoutedEventArgs e)
         {
             menuItemModel.SelectedItemInd = ((System.Windows.Controls.MenuItem)sender).Items.IndexOf(e.OriginalSource);
+            figures.IndPotentialFigure = menuItemModel.SelectedItemInd;
+            figures.PotentialFigure = null;
+            
         }
 
         private Image CreateLineImage(int height,int width,int strokeThickness,Color colorBrush)
@@ -119,48 +126,69 @@ namespace ShapeIT
             return image;
         }
 
+        
+
         private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            figures.IndPotentialFigure = menuItemModel.SelectedItemInd;
             if (figures.IndPotentialFigure != -1)
             {
-                ConstructorInfo figureConstructorInfo = figures.FigureTypes[figures.IndPotentialFigure].GetConstructor(Type.EmptyTypes);
-                figures.PotentialFigure = (Figure)figureConstructorInfo.Invoke(null);
-                figures.PotentialFigure.Fill = (Color)btColorFill.SelectedColor;
-                figures.PotentialFigure.Stroke = (Color)btColorStroke.SelectedColor;
-                figures.PotentialFigure.StrokeThikness = (int)Thickness.Value;
-                figures.PotentialFigure.AddPoint(e.GetPosition((MyCanvas)sender));
+                if (figures.PotentialFigure == null)
+                {
+                    ConstructorInfo figureConstructorInfo = figures.FigureTypes[figures.IndPotentialFigure].GetConstructor(Type.EmptyTypes);
+                    figures.PotentialFigure = (Figure)figureConstructorInfo.Invoke(null);
+                    figures.PotentialFigure.AddPoint(e.GetPosition((MyCanvas)sender));
+                   
+                    return;
+                }
+                else
+                {
+                    figures.PotentialFigure.AddPoint(e.GetPosition((MyCanvas)sender));
+                    canMove = true;
+
+
+                    if (!figures.Linker.Contains(figures.PotentialFigure))
+                    {
+                        figures.PotentialFigure.Fill = (Color)btColorFill.SelectedColor;
+                        figures.PotentialFigure.Stroke = (Color)btColorStroke.SelectedColor;
+                        figures.PotentialFigure.StrokeThikness = (int)Thickness.Value;
+                        figures.Linker.Add(figures.PotentialFigure);
+                        figuresCache.FigCacheUpdate(figures.Linker);
+                        Undo.IsEnabled = true;
+                        Redo.IsEnabled = false;
+                    }
+                    
+                    ((MyCanvas)sender).InvalidateVisual();
+                }
+                
             }
+
+
         }
 
         private void Canvas_MouseMove(object sender,MouseEventArgs e)
         {
-            
-            if (figures.IndPotentialFigure != -1)
+            if (figures.PotentialFigure != null)
             {
-
-                if (!figures.Linker.Contains(figures.PotentialFigure))
+                if (figures.IndPotentialFigure != -1 && canMove)
                 {
-
-                    figures.PotentialFigure.AddPoint(e.GetPosition((MyCanvas)sender));
-                    figures.Linker.Add(figures.PotentialFigure);
-                    figuresCache.FigCacheUpdate(figures.Linker);
-                    Undo.IsEnabled = true;
-                    Redo.IsEnabled = false;
-                    
+                    figures.PotentialFigure.Points[figures.PotentialFigure.Points.Length - 1] = e.GetPosition((MyCanvas)sender);
+                    ((MyCanvas)sender).InvalidateVisual();
                 }
-
-                else
-                {
-                    figures.PotentialFigure.AddPoint(e.GetPosition((MyCanvas)sender));
-                }
+            
             }
-            ((MyCanvas)sender).InvalidateVisual();
         }
 
         private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            figures.IndPotentialFigure = -1;
+            canMove = false;
+            if (figures.PotentialFigure != null)
+            {
+                if (figures.PotentialFigure.MaxPoints() == 2 && figures.Linker.Contains(figures.PotentialFigure))
+                {
+                    figures.PotentialFigure = null;
+                }
+            }
+            
         }
 
         

@@ -7,6 +7,10 @@ namespace ShapeIT
 {
     internal class MyPolyline:Figure
     {
+        public override int MaxPoints()
+        {
+            return 10000;
+        }
         public override void AddPoint(Point cord)
         {
             Point[] temp = new Point[Points.Length+1];
