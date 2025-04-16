@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
-    <Grid Background="Transparent" Name="MainGrid">
+    <Grid Background="Transparent" Name="MainGrid" Loaded="MainGrid_Loaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto">
 
@@ -20,17 +20,30 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Name="miFile" Header="File">
-                <MenuItem Header="Open" IsEnabled="False"/>
-                <MenuItem Header="Save" IsEnabled="False"/>
+                <MenuItem Header="Open" IsEnabled="True">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/File/Open.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Save" IsEnabled="True">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/File/Save.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Save as" IsEnabled="True">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/File/SaveAs.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Name="Undo" IsEnabled="False">
                 <MenuItem.Icon>
-                    <Image Source="/Images/undo.png" Width="20"></Image>
+                    <Image Source="/Images/Undo.png" Width="20"></Image>
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Name="Redo" IsEnabled="False">
                 <MenuItem.Icon>
-                    <Image Source="/Images/redo.png" Width="20"></Image>
+                    <Image Source="/Images/Redo.png" Width="20"></Image>
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Header="Figures" Name="miFigures">
@@ -41,7 +54,14 @@
                 <MenuItem.Icon>
                     <Image Source="/Images/Brush.png"></Image>
                 </MenuItem.Icon>
-                <toolkit:ColorPicker Name="btColorFill" Width="100px" SelectedColor="Red"/>
+                <MenuItem>
+                    <MenuItem.Icon>
+                        <Image Source="/Images/Palette.png"/>
+                    </MenuItem.Icon>
+                    <MenuItem.Header>
+                        <toolkit:ColorPicker Name="btColorFill" Width="100px" SelectedColor="Red"/>
+                    </MenuItem.Header>
+                </MenuItem>
                 
             </MenuItem>
 
@@ -49,8 +69,23 @@
                 <MenuItem.Icon>
                     <Image Source="/Images/Pen.png"></Image>
                 </MenuItem.Icon>
-                <toolkit:ColorPicker Name="btColorStroke" Width="100px" SelectedColor="Black"/>
-                <toolkit:IntegerUpDown Minimum="0" Maximum="10" Value ="5" Name="Thickness"></toolkit:IntegerUpDown>
+                <MenuItem>
+                    <MenuItem.Icon>
+                        <Image Source="/Images/Palette.png"/>
+                    </MenuItem.Icon>
+                    <MenuItem.Header>
+                        <toolkit:ColorPicker Name="btColorStroke" Width="100px" SelectedColor="Black"/>
+                        
+                    </MenuItem.Header>
+                    
+                </MenuItem>
+                <MenuItem Name="miThickness">
+                    <MenuItem.Header>
+                        <toolkit:IntegerUpDown Minimum="0" Maximum="10" Name="Thickness"/>
+                    </MenuItem.Header>
+                </MenuItem>
+                
+                
             </MenuItem>
 
         </Menu>

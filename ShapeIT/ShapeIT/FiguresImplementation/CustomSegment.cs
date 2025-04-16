@@ -15,7 +15,7 @@ namespace ShapeIT
             Points = new Point[2];
             BrushFill = new SolidColorBrush();
             BrushStroke = new SolidColorBrush();
-            this.StrokeThikness = 5;
+            
         }
         public override void DrawShape(DrawingContext drawingContext)
         {

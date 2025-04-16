@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Haley.WPF.Controls;
+using Xceed.Wpf.Toolkit;
 
 
 namespace ShapeIT
@@ -37,13 +38,13 @@ namespace ShapeIT
             figuresCache = new FiguresCache();
             canvas = new MyCanvas();
             canvas.MouseLeftButtonDown += Canvas_MouseLeftButtonDown;
-            canvas.MouseRightButtonDown += Canvas_MouseRightButtonDown;
+            canvas.MouseMove += Canvas_MouseMove;
+            canvas.MouseLeftButtonUp += Canvas_MouseLeftButtonUp;
             canvas.Background = new SolidColorBrush(Colors.Transparent);
             Grid.SetRow(canvas, 1);
 
-
-            //canvas.Background = new SolidColorBrush();
             MainGrid.Children.Add(canvas);
+            
             figures = new Figures();
             canvas.figures = figures;
             Assembly asm = Assembly.GetEntryAssembly();
@@ -71,18 +72,18 @@ namespace ShapeIT
             Redo.Click += Redo_Click;
         }
 
+
         private void Undo_Click(object sender, EventArgs e)
         {
+            Undo.IsEnabled = true;
+            figuresCache.Undo();
             
-            if (figuresCache.Backward != 0)
-            {
-                Undo.IsEnabled = true;
-                figuresCache.Undo();
-                canvas.figures.Linker = figuresCache.GetFinalList();
-                canvas.InvalidateVisual();
-            }
-            else
+            canvas.figures.Linker = figuresCache.GetFinalList();
+            canvas.InvalidateVisual();  
+            
+            if (figuresCache.Backward == 0)
                 Undo.IsEnabled = false;
+
             Redo.IsEnabled = true;
             
         }
@@ -90,15 +91,15 @@ namespace ShapeIT
         private void Redo_Click(object sender, EventArgs e)
         {
             
-            if (figuresCache.Forward != 0)
-            {
-                Redo.IsEnabled = true;
-                figuresCache.Redo();
-                canvas.figures.Linker = figuresCache.GetFinalList();
-                canvas.InvalidateVisual();
-            }
-            else
+            Redo.IsEnabled = true;
+            figuresCache.Redo();
+
+            canvas.figures.Linker = figuresCache.GetFinalList();
+            canvas.InvalidateVisual();
+            
+            if (figuresCache.Forward == 0)
                 Redo.IsEnabled = false;
+           
             Undo.IsEnabled = true;
         }
 
@@ -107,7 +108,16 @@ namespace ShapeIT
             menuItemModel.SelectedItemInd = ((System.Windows.Controls.MenuItem)sender).Items.IndexOf(e.OriginalSource);
         }
 
-
+        private Image CreateLineImage(int height,int width,int strokeThickness,Color colorBrush)
+        {
+            SolidColorBrush brush = new SolidColorBrush(colorBrush);
+            Pen pen = new Pen(brush, strokeThickness);
+            LineGeometry lineGeometry = new LineGeometry(new Point(0,height/2),new Point(width,height/2));
+            DrawingImage lineImage = new DrawingImage(new GeometryDrawing(brush,pen,lineGeometry));
+            Image image = new Image();
+            image.Source = lineImage;
+            return image;
+        }
 
         private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -123,24 +133,21 @@ namespace ShapeIT
             }
         }
 
-        private void Canvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        private void Canvas_MouseMove(object sender,MouseEventArgs e)
         {
-            int possibleInd = menuItemModel.SelectedItemInd;
-
-            if (figures.IndPotentialFigure != -1) {
+            
+            if (figures.IndPotentialFigure != -1)
+            {
 
                 if (!figures.Linker.Contains(figures.PotentialFigure))
                 {
 
-
-                    if (figures.IndPotentialFigure == possibleInd)
-                    {
-
-                        figures.PotentialFigure.AddPoint(e.GetPosition((MyCanvas)sender));
-                        figures.Linker.Add(figures.PotentialFigure);
-                        figuresCache.FigCacheUpdate(figures.Linker);
-                        Undo.IsEnabled = true;
-                    }
+                    figures.PotentialFigure.AddPoint(e.GetPosition((MyCanvas)sender));
+                    figures.Linker.Add(figures.PotentialFigure);
+                    figuresCache.FigCacheUpdate(figures.Linker);
+                    Undo.IsEnabled = true;
+                    Redo.IsEnabled = false;
+                    
                 }
 
                 else
@@ -149,6 +156,29 @@ namespace ShapeIT
                 }
             }
             ((MyCanvas)sender).InvalidateVisual();
+        }
+
+        private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            figures.IndPotentialFigure = -1;
+        }
+
+        
+
+        private void Pen_ValueChanged(object sender, EventArgs e)
+        {
+
+            Image newimage = CreateLineImage(20, 20, (int)(Thickness.Value), (Color)(btColorStroke.SelectedColor));
+            miThickness.Icon = newimage;
+        }
+
+        private void MainGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            Thickness.ValueChanged += Pen_ValueChanged;
+            btColorStroke.SelectedColorChanged += Pen_ValueChanged;
+            Thickness.Value = 5;
+            btColorStroke.SelectedColor = Colors.Black;
+
         }
     }
 

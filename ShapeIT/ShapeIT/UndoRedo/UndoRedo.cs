@@ -26,15 +26,21 @@ namespace ShapeIT
         }
         public void Undo()
         {
-            popFigure.Push(cache.Pop());
-            Backward--;
-            Forward++;
+            if (Backward > 0)
+            {
+                popFigure.Push(cache.Pop());
+                Backward--;
+                Forward++;
+            }
         }
         public void Redo()
         {
-            cache.Push(popFigure.Pop());
-            Backward++;
-            Forward--;
+            if (Forward > 0)
+            {
+                cache.Push(popFigure.Pop());
+                Backward++;
+                Forward--;
+            }
         }
 
         public List<Figure> GetFinalList()

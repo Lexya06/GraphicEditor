@@ -22,7 +22,8 @@ namespace ShapeIT
         public MyPolyline() 
         {
             Points = new Point[0];
-            this.StrokeThikness = 5;
+            BrushFill = new SolidColorBrush();
+            BrushStroke = new SolidColorBrush();
         }
         public override void DrawShape(DrawingContext drawingContext)
         {
