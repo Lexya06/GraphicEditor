@@ -1,6 +1,7 @@
 ﻿
 using System.Windows.Media;
 using System.Windows;
+using FigureAbstract;
 
 namespace ShapeIT
 {
@@ -12,10 +13,9 @@ namespace ShapeIT
         }
         public MySegment()
         {
-            Points = new Point[2];
+            Points = new Point[0];
             BrushFill = new SolidColorBrush();
             BrushStroke = new SolidColorBrush();
-            
         }
         public override void DrawShape(DrawingContext drawingContext)
         {

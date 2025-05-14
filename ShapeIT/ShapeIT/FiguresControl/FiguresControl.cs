@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Media;
+using FigureAbstract;
 
 namespace ShapeIT
 {
@@ -10,7 +11,7 @@ namespace ShapeIT
         {
             Linker = new List<Figure>();
         }
-        public Type[] FigureTypes { get; set; }
+        public List<Type> FigureTypes { get; set; }
         public int IndPotentialFigure { get; set; } = -1;
         public Figure PotentialFigure { get; set; }
         public List<Figure> Linker { get; set; }

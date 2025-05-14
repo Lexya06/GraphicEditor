@@ -6,12 +6,13 @@
         xmlns:local="clr-namespace:ShapeIT"
         xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Closing="Window_Closing">
 
     <Grid Background="Transparent" Name="MainGrid" Loaded="MainGrid_Loaded">
+
         <Grid.RowDefinitions>
             <RowDefinition Height="auto">
-
+                
             </RowDefinition>
 
             <RowDefinition>
@@ -20,19 +21,21 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Name="miFile" Header="File">
-                <MenuItem Header="Open" IsEnabled="True">
+
+                <MenuItem Name ="miFileCreate" Header="New" IsEnabled="True">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/File/Create.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Name ="miFileOpen" Header="Open" IsEnabled="True">
                     <MenuItem.Icon>
                         <Image Source="/Images/File/Open.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Save" IsEnabled="True">
+                <MenuItem Name="miFileSave" Header="Save" IsEnabled="True">
                     <MenuItem.Icon>
                         <Image Source="/Images/File/Save.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Save as" IsEnabled="True">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/File/SaveAs.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -47,7 +50,7 @@
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Header="Figures" Name="miFigures">
-                
+
             </MenuItem>
 
             <MenuItem>
@@ -62,7 +65,7 @@
                         <toolkit:ColorPicker Name="btColorFill" Width="100px" SelectedColor="Red"/>
                     </MenuItem.Header>
                 </MenuItem>
-                
+
             </MenuItem>
 
             <MenuItem>
@@ -75,21 +78,21 @@
                     </MenuItem.Icon>
                     <MenuItem.Header>
                         <toolkit:ColorPicker Name="btColorStroke" Width="100px" SelectedColor="Black"/>
-                        
+
                     </MenuItem.Header>
-                    
+
                 </MenuItem>
                 <MenuItem Name="miThickness">
                     <MenuItem.Header>
                         <toolkit:IntegerUpDown Minimum="0" Maximum="10" Name="Thickness"/>
                     </MenuItem.Header>
                 </MenuItem>
-                
-                
+
+
             </MenuItem>
 
         </Menu>
-        
+
 
     </Grid>
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 using System.Windows;
+using FigureAbstract;
 
 namespace ShapeIT
 {
@@ -11,11 +12,10 @@ namespace ShapeIT
         {
             return "Ellipse";
         }
-        //public int RadiusX { get; set; }
-        //public int RadiusY { get; set; }
+       
         public CustomEllipse()
         {
-            Points = new Point[2];
+            Points = new Point[0];
             BrushFill = new SolidColorBrush();
             BrushStroke = new SolidColorBrush();
             

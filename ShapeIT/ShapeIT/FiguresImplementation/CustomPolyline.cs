@@ -2,6 +2,7 @@
 using System;
 using System.Windows;
 using System.Windows.Media;
+using FigureAbstract;
 
 namespace ShapeIT
 {
@@ -11,14 +12,7 @@ namespace ShapeIT
         {
             return 10000;
         }
-        public override void AddPoint(Point cord)
-        {
-            Point[] temp = new Point[Points.Length+1];
-            Array.Copy(Points, temp, Points.Length);
-            temp[DotsFilled] = cord;
-            Points = temp;
-            DotsFilled++;
-        }
+     
         public override string GetName()
         {
             return "Polyline";

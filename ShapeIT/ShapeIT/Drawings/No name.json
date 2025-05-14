@@ -1,0 +1,282 @@
+[
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "193.6,97.6",
+      "260.8,112",
+      "240.533333333333,206.4",
+      "169.6,191.2"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "340.8,148.8",
+      "384,72",
+      "414.6,221.6",
+      "391.2,263.2"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "496,71.2",
+      "629.6,77.6",
+      "750.3,203.2",
+      "466.4,189.6"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "509.6,239.2",
+      "600,274.4",
+      "520.672727272727,320",
+      "510.4,316"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "154.4,251.2",
+      "219.2,248",
+      "156,300.8",
+      "139.8,301.6"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "260.8,260.8",
+      "240,479.2",
+      "220.076190476191,404",
+      "221.6,388"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "372,504",
+      "368,409.6",
+      "428,411.2",
+      "431.152542372881,485.6"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "590.4,498.4",
+      "572.8,435.2",
+      "652.8,416.8",
+      "677.306329113924,504.8"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "48.8,444.8",
+      "176.8,451.2",
+      "60.8000000000003,539.2",
+      "28.8,537.6"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "250.4,547.2",
+      "271.2,484.8",
+      "336.8,476",
+      "315.733333333333,539.2"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "427.2,568",
+      "445.6,525.6",
+      "516.8,514.4",
+      "493.88679245283,567.2"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "544,377.6",
+      "492.8,424",
+      "382.951724137931,297.6",
+      "385.6,295.2"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "1009.6,160.8",
+      "1075.2,158.4",
+      "1141.6,252",
+      "901.066666666667,260.8"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "871.2,424.8",
+      "903.2,422.4",
+      "1174.4,499.2",
+      "822.4,525.6"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "837.6,584",
+      "636,563.2",
+      "815.2,698.4",
+      "970.276923076923,714.4"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "1005.6,618.4",
+      "1276,585.6",
+      "1020,738.4",
+      "993.619512195123,741.6"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "1240.8,197.6",
+      "1485.6,200.8",
+      "7003.20000000002,398.4",
+      "1005.6,320"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "328.8,675.2",
+      "516,686.4",
+      "367.2,770.4",
+      "193.371428571428,760"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "628.8,675.2",
+      "615.2,759.2",
+      "689.013333333333,761.6",
+      "700.8,688.8"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  },
+  {
+    "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
+    "CanWrap": false,
+    "DotsFilled": 4,
+    "Points": [
+      "1280.80000000007,740.8",
+      "1404.00000000007,741.6",
+      "1478.40000000007,816",
+      "0,806.4"
+    ],
+    "Fill": "#FFFF0000",
+    "StrokeThikness": 5,
+    "Stroke": "#FF000000"
+  }
+]

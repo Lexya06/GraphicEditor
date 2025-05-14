@@ -1,6 +1,7 @@
 ﻿
 using System.Windows;
 using System.Windows.Media;
+using FigureAbstract;
 
 
 namespace ShapeIT
@@ -12,13 +13,11 @@ namespace ShapeIT
             return "Rectangle";
         }
         public MyRectangle(){
-            Points = new Point[2];
+            Points = new Point[0];
             BrushFill = new SolidColorBrush();
             BrushStroke = new SolidColorBrush();
-            
         }
-        //public int Width {  get; set; }
-        //public int Height { get; set; }
+      
         public override void DrawShape(DrawingContext drawingContext)
         {
             

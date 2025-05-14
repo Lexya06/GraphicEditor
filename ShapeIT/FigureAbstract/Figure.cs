@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
 using System.Windows;
+using System.Windows.Media;
+using Newtonsoft.Json;
 
-
-namespace ShapeIT
+namespace FigureAbstract
 {
     public abstract class Figure
     {
@@ -15,7 +11,14 @@ namespace ShapeIT
         {
             return 2;
         }
-        protected int DotsFilled { get; set; } = 0;
+
+        public virtual int MinPoints()
+        {
+            return 2;
+        }
+
+        public int DotsFilled { get; protected set; } = 0;
+
         public virtual string GetName()
         {
             return "Figure";
@@ -24,18 +27,33 @@ namespace ShapeIT
         public virtual void AddPoint(Point cord)
         {
 
-            Points[DotsFilled] = cord;
-            if (DotsFilled < Points.Length - 1)
+            if (DotsFilled < MaxPoints())
             {
+                Point[] temp = new Point[Points.Length + 1];
+                Array.Copy(Points, temp, Points.Length);
+                temp[DotsFilled] = cord;
+                Points = temp;
                 DotsFilled++;
             }
         }
 
+        public virtual void ReplacePoint(int ind, Point cord)
+        {
+            if (ind > 0 && ind < MaxPoints())
+            {
+                Points[ind] = cord;
+            }
+        }
         public abstract void DrawShape(DrawingContext drawingContext);
         public Color Fill { get; set; }
         public int StrokeThikness { get; set; }
         public Color Stroke { get; set; }
+
+        [JsonIgnore]
         public SolidColorBrush BrushFill { get; set; }
+
+        [JsonIgnore]
         public SolidColorBrush BrushStroke { get; set; }
     }
+
 }
