@@ -36,13 +36,6 @@ namespace Trapezoid
 
         }
 
-        public override void ReplacePoint(int ind, Point cord)
-        {
-            base.ReplacePoint(ind, cord);
-            ReParallel();
-            
-        }
-
         public override void DrawShape(DrawingContext drawingContext)
         {
             BrushFill.Color = this.Fill;

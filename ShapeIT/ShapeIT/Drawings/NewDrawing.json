@@ -1,7 +1,7 @@
 [
   {
     "$type": "Trapezoid.MyTrapezoid, Trapeziaz",
-    "DotsFilled": 0,
+    "DotsFilled": 4,
     "Points": [
       "123.2,248.8",
       "159.2,156.8",
@@ -15,7 +15,7 @@
   {
     "$type": "ShapeIT.CustomEllipse, ShapeIT",
     "center": "428.8,193.6",
-    "DotsFilled": 0,
+    "DotsFilled": 2,
     "Points": [
       "351.2,104",
       "506.4,283.2"
@@ -26,7 +26,7 @@
   },
   {
     "$type": "ShapeIT.CustomPolygon, ShapeIT",
-    "DotsFilled": 0,
+    "DotsFilled": 7,
     "Points": [
       "496,77.6",
       "512.8,40",
@@ -42,7 +42,7 @@
   },
   {
     "$type": "ShapeIT.MySegment, ShapeIT",
-    "DotsFilled": 0,
+    "DotsFilled": 2,
     "Points": [
       "97.6,80",
       "194.4,13.6"
@@ -53,7 +53,7 @@
   },
   {
     "$type": "ShapeIT.MySegment, ShapeIT",
-    "DotsFilled": 0,
+    "DotsFilled": 2,
     "Points": [
       "636.8,206.4",
       "552.8,116.8"
@@ -64,7 +64,7 @@
   },
   {
     "$type": "ShapeIT.MyRectangle, ShapeIT",
-    "DotsFilled": 0,
+    "DotsFilled": 2,
     "Points": [
       "52.8,196",
       "211.2,334.4"

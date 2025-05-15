@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using System.IO;
 using FigureAbstract;
+using System.Windows.Shell;
 
 
 namespace ShapeIT
@@ -71,11 +72,14 @@ namespace ShapeIT
                 if (result == true)
                 {
                     isSaved = true;
+                    
                 }
                 else
                     return result;
             }
             FiguresSerialize.FileSerialize(currProjectName,figures.Linker);
+            tempList.Clear();
+            tempList.AddRange(figures.Linker);
             return result;
         }
         private bool ConfirmFileOperation(ref string fileName)
@@ -204,7 +208,7 @@ namespace ShapeIT
         private void Undo_Click(object sender, EventArgs e)
         {
 
-            figures.PotentialFigure = null;
+            //figures.PotentialFigure = null;
             Undo.IsEnabled = true;
             figuresCache.Undo();
             
@@ -275,6 +279,7 @@ namespace ShapeIT
                     {
                         isSaved = false;
                         figures.Linker.Clear();
+                        figuresCache.FigCacheUpdate(figures.Linker);
                         currProjectName = "No name.json";
                         tempList.Clear();
                         this.Title = $"{currProjectName} - ShapeIT";
@@ -290,6 +295,7 @@ namespace ShapeIT
                         {
                             List<Figure> newFigures = new List<Figure>();
                             FiguresSerialize.FileDeserialize(currProjectName, ref newFigures);
+                            figuresCache.FigCacheUpdate(newFigures);
                             figures.Linker = newFigures;
                             tempList.Clear();
                             tempList.AddRange(figures.Linker);
