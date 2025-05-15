@@ -39,7 +39,6 @@ namespace ShapeIT
             dialog.DefaultExt = ".json";
             dialog.Filter = "JSON файлы (*.json)|*json";
             dialog.AddExtension = true;
-            dialog.InitialDirectory = WorkDir + "\\Drawings";
 
         }
 
