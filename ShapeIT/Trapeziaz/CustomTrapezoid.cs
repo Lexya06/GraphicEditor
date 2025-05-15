@@ -8,9 +8,12 @@ namespace Trapezoid
     public class MyTrapezoid:Figure
     {
         public void ReParallel()
-        {   
-            double A = (Points[0].Y - Points[1].Y) / (Points[0].X - Points[1].X);
-            Points[3].Y = Points[2].Y + A * (Points[3].X - Points[2].X);
+        {
+            if (Points.Length == MaxPoints())
+            {
+                double A = (Points[0].Y - Points[1].Y) / (Points[0].X - Points[1].X);
+                Points[3].Y = Points[2].Y + A * (Points[3].X - Points[2].X);
+            }
         }
 
         public override int MaxPoints()
@@ -19,7 +22,7 @@ namespace Trapezoid
         }
         public override int MinPoints()
         {
-            return 4;
+            return 2;
         }
         public override string GetName()
         {
@@ -37,6 +40,7 @@ namespace Trapezoid
         {
             base.ReplacePoint(ind, cord);
             ReParallel();
+            
         }
 
         public override void DrawShape(DrawingContext drawingContext)
@@ -45,6 +49,7 @@ namespace Trapezoid
             BrushStroke.Color = this.Stroke;
             Pen pen = new Pen(BrushStroke, this.StrokeThikness);
             StreamGeometry streamGeometry = new StreamGeometry();
+            ReParallel();
             using (StreamGeometryContext g = streamGeometry.Open())
             {
                 g.BeginFigure(Points[0], true, true);

@@ -384,6 +384,7 @@ namespace ShapeIT
                 if ((figures.PotentialFigure.DotsFilled == figures.PotentialFigure.MaxPoints()) && figures.Linker.Contains(figures.PotentialFigure))
                 {
                     figures.PotentialFigure = null;
+                  
                 }
             }
             
